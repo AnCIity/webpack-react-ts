@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 
 interface IProps {
   name: string
@@ -6,27 +7,21 @@ interface IProps {
 }
 
 function App(props: IProps) {
-  const { name, age } = props
-
-  console.log([1, 2, 3].includes(2))
-
-  let obj = {
-    name: '实际名称'
-  }
-  let handler = {
-    //等同于
-    // get:(target,property)=>{
-    //get:function(target,property){
-    ['get']() {
-      return '拦截名称'
-    }
-  }
-  let proxy = new Proxy(obj, handler)
-  console.log(proxy.name) //chen
-
   return (
     <div className='app'>
-      <span>{`Hello! I'm ${name}, ${age} years old.`}</span>
+      <button
+        onClick={async () => {
+          // const data = await axios.post('/api/user/login')
+
+          try {
+            const data = await fetch('/api/user/login', { method: 'POST' })
+
+            console.log('返回数据：', data)
+          } catch (error) {}
+        }}
+      >
+        请求
+      </button>
     </div>
   )
 }
